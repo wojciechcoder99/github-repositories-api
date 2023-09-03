@@ -1,8 +1,6 @@
 package com.example.githubrepositories.controllers;
 
-import com.example.githubrepositories.exceptions.NotAcceptableException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,13 +24,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Map<String, Object> handleGenericException(Exception ex) {
         return createErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, "An internal error occurred");
-    }
-
-    @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
-    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    @ResponseBody
-    public Map<String, Object> handleNotAcceptableException(HttpMediaTypeNotAcceptableException ex) {
-        return createErrorMessage(HttpStatus.NOT_ACCEPTABLE, "The provided Accept header is not supported.");
     }
 
     private static Map<String, Object> createErrorMessage(HttpStatus status, String message) {

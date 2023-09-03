@@ -26,7 +26,7 @@ public class GithubService {
 
     public List<GithubRepositoryDTO> getUserRepositories(String username) throws Exception {
         ResponseEntity<List<GithubRepoWeb>> response = restTemplate.exchange(
-                String.format(GITHUB_API + "users/" + "%s" +  "repos", username),
+                String.format(GITHUB_API + "users/" + "%s" +  "/repos", username),
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {

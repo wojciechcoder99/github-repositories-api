@@ -24,14 +24,9 @@ public class GithubService {
     private static final String GITHUB_API = "https://api.github.com/";
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public List<GithubRepositoryDTO> getUserRepositories(String username) throws Exception {
-        ResponseEntity<List<GithubRepoWeb>> response = restTemplate.exchange(
-                String.format(GITHUB_API + "users/" + "%s" +  "/repos", username),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                }
-        );
+    public List<GithubRepositoryDTO> getUserRepositories(String username) {
+        ResponseEntity<List<GithubRepoWeb>> response = executeGetMethod(
+                String.format(GITHUB_API + "users/" + "%s" +  "/repos", username));
         return createRepositoriesInfos(response.getBody());
     }
 
@@ -54,14 +49,19 @@ public class GithubService {
     }
 
     private List<GithubBranchDTO> getBranchInfo(String owner, String repo) {
-        ResponseEntity<List<GithubBranchWeb>> response = restTemplate.exchange(
-                String.format(GITHUB_API + "repos/" + "%s" +  "/" + "%s" + "/branches", owner, repo),
+        ResponseEntity<List<GithubBranchWeb>> response = executeGetMethod(
+                String.format(GITHUB_API + "repos/" + "%s" +  "/" + "%s" + "/branches", owner, repo));
+        return createBranchesInfos(response.getBody());
+    }
+
+    private <T> ResponseEntity<List<T>> executeGetMethod(String url) {
+        return restTemplate.exchange(
+                url,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {
                 }
         );
-        return createBranchesInfos(response.getBody());
     }
 
     private List<GithubBranchDTO> createBranchesInfos(List<GithubBranchWeb> body) {

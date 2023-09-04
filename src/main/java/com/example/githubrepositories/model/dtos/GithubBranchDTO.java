@@ -1,4 +1,12 @@
 package com.example.githubrepositories.model.dtos;
 
-public record GithubBranchDTO(String name, GithubCommitDTO commit) {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record GithubBranchDTO(
+        @JsonProperty("name")
+        String name,
+        @JsonProperty("commit")
+        GithubCommitDTO commit) {
 }

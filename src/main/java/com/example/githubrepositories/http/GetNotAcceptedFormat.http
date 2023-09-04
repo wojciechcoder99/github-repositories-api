@@ -1,4 +1,4 @@
-GET http://localhost:8080/api/github/repositories/bykowski
+GET http://localhost:8080/api/github/repositories/wojciechcoder99
 Accept: application/xml
 
 ###

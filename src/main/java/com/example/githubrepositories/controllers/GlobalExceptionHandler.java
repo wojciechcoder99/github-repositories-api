@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @ControllerAdvice
@@ -27,7 +28,7 @@ public class GlobalExceptionHandler {
     }
 
     private static Map<String, Object> createErrorMessage(HttpStatus status, String message) {
-        Map<String, Object> response = new HashMap<>();
+        Map<String, Object> response = new LinkedHashMap<>();
         response.put("status", status.value());
         response.put("Message", message);
         return response;

@@ -1,0 +1,4 @@
+GET http://localhost:8080/api/github/repositories/nonexistinguser
+Accept: application/json
+
+###
